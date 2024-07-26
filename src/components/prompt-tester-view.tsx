@@ -3,53 +3,22 @@ import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
+import usePromptHistoryStore from '@/stores/promptHistoryStore';
 
 export function PromptTesterView() {
-  const [history, setHistory] = useState([
-    {
-      id: 1,
-      prompt: 'Hello! How can I assist you today?',
-      result: "I'm an AI assistant created by Anthropic to help with a variety of tasks.",
-    },
-    {
-      id: 2,
-      prompt:
-        "I'm wondering if you can help me understand how airplane turbulence works. I'm a bit nervous about my first flight coming up.",
-      result:
-        "Turbulence happens when the plane encounters pockets of air that are moving differently than the surrounding air. It's kind of like sailing a boat on choppy water - the boat will bounce and shake a bit, but it's completely normal and not dangerous at all.",
-    },
-    {
-      id: 3,
-      prompt: 'Is there anything else I should know before I go?',
-      result:
-        "- Drink plenty of water to stay hydrated\n- Bring noise-cancelling headphones or earplugs\n- If you feel anxious, try some deep breathing or meditation exercises\n- Don't be afraid to ask the flight attendants for anything you need",
-    },
-    {
-      id: 4,
-      prompt: 'What is the weather forecast for my destination?',
-      result: '',
-    },
-    {
-      id: 5,
-      prompt: 'Can you recommend a good restaurant near the airport?',
-      result: '',
-    },
-  ]);
+  const { history, addItem, updateItem, generateFromPrompt } = usePromptHistoryStore();
 
   const refPromptBox = useRef(null as any);
   const [newPrompt, setNewPrompt] = useState('');
 
-  const handleSendPrompt = () => {
-    if (newPrompt.trim() !== '') {
-      const newPromptObj = {
-        id: history.length + 1,
-        prompt: newPrompt,
-        result: '',
-      };
-      setHistory([...history, newPromptObj]);
-      setNewPrompt('');
-      updatePromptAreaSize();
-    }
+  const handleSendPrompt = async () => {
+    const _prompt = newPrompt.trim();
+
+    if (_prompt === '') return;
+
+    generateFromPrompt(_prompt);
+    setNewPrompt('');
+    updatePromptAreaSize();
   };
 
   const updatePromptAreaSize = () => {
