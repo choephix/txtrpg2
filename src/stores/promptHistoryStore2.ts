@@ -10,7 +10,7 @@ const persistance = globalThis.localStorage
 
 // Initialize the OpenAI client
 const openai = new OpenAI({
-  apiKey: process.env.NEXT_PUBLIC_ANALYTICS_ID,
+  apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
   dangerouslyAllowBrowser: true,
 });
 
