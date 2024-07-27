@@ -1,5 +1,5 @@
 export module StringConstants {
-  export const defaultHistory = [
+  export const defaultHistoryChat = [
     {
       id: 1,
       sender: 'assistant',
@@ -32,6 +32,27 @@ export module StringConstants {
     },
   ];
 
+  export const defaultHistoryPromptResultPairs = [
+    {
+      id: 1,
+      prompt: 'Hello! How can I assist you today?',
+      result: "I'm an AI assistant created by Anthropic to help with a variety of tasks.",
+    },
+    {
+      id: 2,
+      prompt:
+        "I'm wondering if you can help me understand how airplane turbulence works. I'm a bit nervous about my first flight coming up.",
+      result:
+        "Turbulence happens when the plane encounters pockets of air that are moving differently than the surrounding air. It's kind of like sailing a boat on choppy water - the boat will bounce and shake a bit, but it's completely normal and not dangerous at all.",
+    },
+    {
+      id: 3,
+      prompt: 'Is there anything else I should know before I go?',
+      result:
+        "- Drink plenty of water to stay hydrated\n- Bring noise-cancelling headphones or earplugs\n- If you feel anxious, try some deep breathing or meditation exercises\n- Don't be afraid to ask the flight attendants for anything you need",
+    },
+  ];
+
   export const systemMessage = `
   You are a master of the written word. 
   Let's help immerse our fantasy adventure game's users into the world of Lorem.
@@ -48,5 +69,5 @@ export module StringConstants {
   {
     "text": "You push the inn's front door open and enter the common area. It got lot more crowded since you were away. The hunk behind the bar was the same though. You would not be shocked if the glass in his hand was the same one he was scrubbing over and over this morning."
   }
-  `
+  `;
 }

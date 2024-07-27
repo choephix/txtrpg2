@@ -5,7 +5,7 @@ import { StringConstants } from '@/lib/defaultHistory';
 import { useState } from 'react';
 
 export function ChatView() {
-  const [history, setHistory] = useState(StringConstants.defaultHistory);
+  const [history, setHistory] = useState(StringConstants.defaultHistoryChat);
   const [newMessage, setNewMessage] = useState('');
   const handleSendMessage = () => {
     if (newMessage.trim() !== '') {
