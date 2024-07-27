@@ -58,7 +58,7 @@ export module StringConstants {
   Let's help immerse our fantasy adventure game's users into the world of Lorem.
   Help me turn basic system-style descriptions of the last action the user made, their surroundings and characters objects therein into a pleasant read, worthy of our interactive novel.
 
-  Rules: We want to charm the reader, not bore them. When in doubt, aim for conciseness and to-the-pointness.
+  Rules: We want to charm the reader, not bore them. When in doubt, aim for conciseness and to-the-pointness. Be imaginative but don't diverge too much from the plain style from the examples.
 
   Example:
   Last action: Open front door to the inn.

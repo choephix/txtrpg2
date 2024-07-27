@@ -1,3 +1,5 @@
+'use client';
+
 import { useRef, useState } from 'react';
 
 import { Separator } from '@/components/ui/separator';
@@ -11,6 +13,8 @@ import { StringConstants } from '@/lib/defaultHistory';
 
 export function PromptTesterView() {
   const { history, addItem, updateItem, generateFromPrompt } = usePromptHistoryStore();
+
+  
 
   const refPromptBox = useRef(null as any);
   const [newPrompt, setNewPrompt] = useState('');
@@ -39,15 +43,17 @@ export function PromptTesterView() {
         <div className='grid gap-4'>
           <div className='flex flex-col items-start gap-2'>
             <div className='rounded-lg p-3 max-w-[75%] bg-muted'>
-              <pre className='text-xs whitespace-pre-wrap'>{StringConstants.systemMessage}</pre>
+              <p className='text-xs whitespace-pre-wrap'>{StringConstants.systemMessage}</p>
             </div>
           </div>
 
           {history.map(message => (
             <div key={message.id} className='flex flex-col items-start ga1p-2'>
               <div className='rounded-lg p-3 max-w-[75%] bg-primary text-primary-foreground'>
-                <pre className='text-sm whitespace-pre-wrap'>{message.prompt}</pre>
+                <p className='text-xs whitespace-pre-wrap'>{message.prompt}</p>
+
                 <Separator className='my-2' />
+
                 {message.result ? (
                   <p className='text-sm'>{message.result}</p>
                 ) : (

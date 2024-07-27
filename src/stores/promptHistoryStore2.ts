@@ -1,8 +1,12 @@
-import { create } from 'zustand';
 import OpenAI from 'openai';
-import { StringConstants } from '@/lib/defaultHistory';
+import { create } from 'zustand';
 
-console.log(process.env.NEXT_PUBLIC_ANALYTICS_ID);
+import { StringConstants } from '@/lib/defaultHistory';
+import createLocalStorageService from '@/lib/local-storage-service';
+
+const persistance = globalThis.localStorage
+  ? createLocalStorageService<PromptItem>('saved_history')
+  : null;
 
 // Initialize the OpenAI client
 const openai = new OpenAI({
@@ -10,7 +14,7 @@ const openai = new OpenAI({
   dangerouslyAllowBrowser: true,
 });
 
-interface PromptItem {
+export interface PromptItem {
   id: number | string;
   prompt: string;
   result?: string;
@@ -20,6 +24,7 @@ interface PromptItem {
 
 interface PromptHistoryStore {
   history: PromptItem[];
+  setHistoryItems: (items: PromptItem[]) => void;
   addItem: (item: PromptItem) => void;
   updateItem: (index: number, updates: Partial<PromptItem>) => void;
   generateFromPromptMock: (prompt: string) => Promise<void>;
@@ -29,17 +34,27 @@ interface PromptHistoryStore {
 const CONTEXT = StringConstants.systemMessage; // Replace with your actual context
 
 export const usePromptHistoryStore = create<PromptHistoryStore>((set, get) => ({
-  history: StringConstants.defaultHistoryPromptResultPairs,
+  // history: persistance?.loadItems() || [],
+  // history: StringConstants.defaultHistoryPromptResultPairs,
+  history: [],
+
+  setHistoryItems: (items: PromptItem[]) => set({ history: items }),
 
   addItem: (item: PromptItem) =>
-    set(state => ({
-      history: [...state.history, item],
-    })),
+    set(state => {
+      const newHistory = [...state.history, item];
+      persistance?.saveItems(newHistory);
+      return { history: newHistory };
+    }),
 
   updateItem: (index: number, updates: Partial<PromptItem>) =>
-    set(state => ({
-      history: state.history.map((item, i) => (i === index ? { ...item, ...updates } : item)),
-    })),
+    set(state => {
+      const newHistory = state.history.map((item, i) =>
+        i === index ? { ...item, ...updates } : item
+      );
+      persistance?.saveItems(newHistory);
+      return { history: newHistory };
+    }),
 
   generateFromPromptMock: async (prompt: string) => {
     const nextId = get().history.length + 1;
@@ -113,6 +128,13 @@ export const usePromptHistoryStore = create<PromptHistoryStore>((set, get) => ({
 }));
 
 export default usePromptHistoryStore;
+
+globalThis.requestAnimationFrame?.(() => {
+  const savedHistory = persistance?.loadItems();
+  if (!savedHistory?.length) return;
+
+  usePromptHistoryStore.getState().setHistoryItems(savedHistory);
+});
 
 function processResult(content: string) {
   try {
