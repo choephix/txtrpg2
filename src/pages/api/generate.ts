@@ -4,6 +4,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { generateText } from 'ai';
 // import { google } from '@ai-sdk/google';
 import { createOpenAI as createGroq } from '@ai-sdk/openai';
+import { StringConstants } from '@/lib/defaultHistory';
 // import { createGoogleGenerativeAI as createGroq } from '@ai-sdk/google';
 
 const groq = createGroq({
@@ -22,6 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     model: groq('gemma2-9b-it'),
     // model: google('models/gemini-1.5-flash-latest'),
     prompt: String(prompt),
+    system: StringConstants.systemMessage,
   });
 
   res.status(200).json({ text });
