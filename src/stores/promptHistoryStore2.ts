@@ -86,6 +86,9 @@ export const usePromptHistoryStore = create<PromptHistoryStore>((set, get) => ({
           { role: 'user', content: prompt },
         ],
         stream: true,
+        response_format: {
+          type: 'json_object',
+        },
       });
 
       let result = '';

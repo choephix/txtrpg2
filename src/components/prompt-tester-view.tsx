@@ -44,8 +44,7 @@ export function PromptTesterView() {
           </div>
 
           {history.map(message => (
-            <div key={message.id} className='flex flex-col items-start gap-2'>
-              {/* <div className='rounded-lg p-3 max-w-[75%] bg-muted'> */}
+            <div key={message.id} className='flex flex-col items-start ga1p-2'>
               <div className='rounded-lg p-3 max-w-[75%] bg-primary text-primary-foreground'>
                 <p className='text-sm'>{message.prompt}</p>
                 <Separator className='my-2' />
