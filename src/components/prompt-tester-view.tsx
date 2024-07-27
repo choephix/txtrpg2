@@ -46,7 +46,7 @@ export function PromptTesterView() {
           {history.map(message => (
             <div key={message.id} className='flex flex-col items-start ga1p-2'>
               <div className='rounded-lg p-3 max-w-[75%] bg-primary text-primary-foreground'>
-                <p className='text-sm'>{message.prompt}</p>
+                <pre className='text-sm whitespace-pre-wrap'>{message.prompt}</pre>
                 <Separator className='my-2' />
                 {message.result ? (
                   <p className='text-sm'>{message.result}</p>

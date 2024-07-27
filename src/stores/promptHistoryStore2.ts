@@ -91,11 +91,13 @@ export const usePromptHistoryStore = create<PromptHistoryStore>((set, get) => ({
         },
       });
 
-      let result = '';
+      let combinedContent = '';
 
       for await (const chunk of stream) {
         const content = chunk.choices[0]?.delta?.content || '';
-        result += content;
+        combinedContent += content;
+
+        const result = processResult(combinedContent);
         get().updateItem(newItemIndex, { result, loading: true });
       }
 
@@ -111,3 +113,17 @@ export const usePromptHistoryStore = create<PromptHistoryStore>((set, get) => ({
 }));
 
 export default usePromptHistoryStore;
+
+function processResult(content: string) {
+  try {
+    const result = JSON.parse(content);
+    return result.text;
+  } catch (error) {
+    try {
+      const result = JSON.parse(content + '"}');
+      return result.text;
+    } catch (error) {
+      return '...';
+    }
+  }
+}
