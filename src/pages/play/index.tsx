@@ -28,18 +28,18 @@ const Game: React.FC = () => {
   if (!currentLocation) return <div>Loading...</div>;
 
   return (
-    <div className="flex justify-center items-start min-h-screen">
-      <div className="max-w-2xl w-full p-4">
+    <div className='flex justify-center items-start min-h-screen'>
+      <div className='max-w-2xl w-full p-4'>
         <div>
           {history.map((entry, index) => (
-            <div className='border-2 border-black m-2 p-2' key={index}>
+            <div className='border-2 border-black m-2 p-2 rounded-lg' key={index}>
               {entry.locationSlug} (Steps: {entry.stepsTaken}, Distance:{' '}
               {entry.distanceTravelled.toFixed(2)})
             </div>
           ))}
         </div>
 
-        <div className='border-2 border-black m-2 p-2'>
+        <div className='border-2 border-black m-2 p-2 rounded-lg'>
           <h1>Current Location: {currentLocation.slug}</h1>
           <p>Steps Taken: {stepsTaken}</p>
           <p>Distance Travelled: {distanceTravelled.toFixed(2)}</p>
