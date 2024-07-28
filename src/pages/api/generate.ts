@@ -26,6 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   if (!prompt) return res.status(400).json({ error: 'No prompt provided' });
 
   const model = groq('gemma2-9b-it');
+  // const model = groq('mixtral-8x7b-32768');
   // const model = google('models/gemini-1.5-flash-latest', {});
   // const model = groq('llama-3.1-8b-instant');
 
@@ -38,7 +39,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     schema: schema,
     prompt: String(prompt),
     system: StringConstants.systemMessage,
-    temperature: 0.3,
+    temperature: 0.5,
   });
 
   res.status(200).json(object);

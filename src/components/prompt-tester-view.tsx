@@ -8,7 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 
 // import usePromptHistoryStore from '@/stores/promptHistoryStore';
-import usePromptHistoryStore from '@/stores/promptHistoryStore2';
+import usePromptHistoryStore from '@/stores/promptHistoryStore.local';
 import { StringConstants } from '@/lib/defaultHistory';
 
 export function PromptTesterView() {
