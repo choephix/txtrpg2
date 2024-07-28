@@ -102,17 +102,3 @@ globalThis.requestAnimationFrame?.(() => {
 
   usePromptHistoryStore.getState().setHistoryItems(savedHistory);
 });
-
-function processResult(content: string) {
-  try {
-    const result = JSON.parse(content);
-    return result.text;
-  } catch (error) {
-    try {
-      const result = JSON.parse(content + '"}');
-      return result.text;
-    } catch (error) {
-      return '...';
-    }
-  }
-}
