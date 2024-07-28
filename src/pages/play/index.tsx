@@ -28,31 +28,33 @@ const Game: React.FC = () => {
   if (!currentLocation) return <div>Loading...</div>;
 
   return (
-    <div>
-      <div>
-        {history.map((entry, index) => (
-          <div className='border-2 border-black m-2 p-2' key={index}>
-            {entry.locationSlug} (Steps: {entry.stepsTaken}, Distance:{' '}
-            {entry.distanceTravelled.toFixed(2)})
-          </div>
-        ))}
-      </div>
-
-      <div className='border-2 border-black m-2 p-2'>
-        <h1>Current Location: {currentLocation.slug}</h1>
-        <p>Steps Taken: {stepsTaken}</p>
-        <p>Distance Travelled: {distanceTravelled.toFixed(2)}</p>
-        <h2>Available Exits:</h2>
-        <ul>
-          {availableExits.map(exit => (
-            <li key={exit.uid}>
-              <button onClick={() => move(exit.uid)}>▷ {exit.slug}</button>
-            </li>
+    <div className="flex justify-center items-start min-h-screen">
+      <div className="max-w-2xl w-full p-4">
+        <div>
+          {history.map((entry, index) => (
+            <div className='border-2 border-black m-2 p-2' key={index}>
+              {entry.locationSlug} (Steps: {entry.stepsTaken}, Distance:{' '}
+              {entry.distanceTravelled.toFixed(2)})
+            </div>
           ))}
-        </ul>
-        <button onClick={goBack} disabled={history.length <= 1}>
-          ◁ Go Back
-        </button>
+        </div>
+
+        <div className='border-2 border-black m-2 p-2'>
+          <h1>Current Location: {currentLocation.slug}</h1>
+          <p>Steps Taken: {stepsTaken}</p>
+          <p>Distance Travelled: {distanceTravelled.toFixed(2)}</p>
+          <h2>Available Exits:</h2>
+          <ul>
+            {availableExits.map(exit => (
+              <li key={exit.uid}>
+                <button onClick={() => move(exit.uid)}>▷ {exit.slug}</button>
+              </li>
+            ))}
+          </ul>
+          <button onClick={goBack} disabled={history.length <= 1}>
+            ◁ Go Back
+          </button>
+        </div>
       </div>
     </div>
   );
