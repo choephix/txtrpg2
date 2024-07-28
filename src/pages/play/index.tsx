@@ -24,7 +24,9 @@ const Game: React.FC = () => {
 
     // Add history entry
     if (historyEntry) {
-      requestAnimationFrame(() => setHistory([...history, historyEntry]));
+      requestAnimationFrame(
+        () => setHistory([...history, historyEntry])
+      )
     }
   }, []);
 

@@ -14,7 +14,7 @@ export type GameState = {
 };
 
 export type HistoryEntry = {
-  nodeUid: string;
+  locationSlug: string;
   stepsTaken: number;
   distanceTravelled: number;
-};
+}
