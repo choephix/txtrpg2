@@ -11,9 +11,7 @@ const Game: React.FC = () => {
   const [history, setHistory] = useState<HistoryEntry[]>([]);
 
   useEffect(() => {
-    if (!gameLogic) return;
-
-    const historyEntry = {
+    const historyEntry = gameLogic && {
       nodeUid: gameLogic.getCurrentLocation().uid,
       stepsTaken: gameLogic.getGameState().stepsTaken,
       distanceTravelled: gameLogic.getGameState().distanceTravelled,
@@ -25,7 +23,9 @@ const Game: React.FC = () => {
     setGameLogic(new GameLogic(locations, initialNodeUid));
 
     // Add history entry
-    setHistory([...history, historyEntry]);
+    if (historyEntry) {
+      requestAnimationFrame(() => setHistory([...history, historyEntry]));
+    }
   }, []);
 
   if (!gameLogic) return <div>Loading...</div>;
