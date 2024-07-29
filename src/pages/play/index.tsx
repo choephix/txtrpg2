@@ -28,18 +28,18 @@ const Game: React.FC = () => {
   if (!currentLocation) return <div>Loading...</div>;
 
   return (
-    <div className='flex justify-center items-start min-h-screen'>
+    <div className='flex justify-center items-start min-h-screen bg-[#d1d6df]'>
       <div className='max-w-2xl w-full p-4'>
         <div>
           {history.map((entry, index) => (
-            <div className='border-2 border-black m-2 p-2 rounded-lg' key={index}>
+            <Card key={index}>
               {entry.locationSlug} (Steps: {entry.stepsTaken}, Distance:{' '}
               {entry.distanceTravelled.toFixed(2)})
-            </div>
+            </Card>
           ))}
         </div>
 
-        <div className='border-2 border-black m-2 p-2 rounded-lg'>
+        <Card>
           <h1>Current Location: {currentLocation.slug}</h1>
           <p>Steps Taken: {stepsTaken}</p>
           <p>Distance Travelled: {distanceTravelled.toFixed(2)}</p>
@@ -54,10 +54,14 @@ const Game: React.FC = () => {
           <button onClick={goBack} disabled={history.length <= 1}>
             ◁ Go Back
           </button>
-        </div>
+        </Card>
       </div>
     </div>
   );
+};
+
+const Card = ({ children }: { children: React.ReactNode }) => {
+  return <div className='m-2 p-2 rounded-lg bg-[#ffffff] shadow-lg shadow-black'>{children}</div>;
 };
 
 export default Game;
